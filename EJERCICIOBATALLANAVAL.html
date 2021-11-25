@@ -1,25 +1,91 @@
 <script>
-var horizontal 
-var vertical
-var columna, mar = new Array(10);
-
-for( var i = 0; i < 10; i++);
-    for( var j = 0; j < 10; j++);
-
-horizontal = parseInt( prompt("\n\nfavor ingresar la horizontal a ubicar el barco [1_10]: ") );
-if( horizontal >= 1 && horizontal <= 10 ){
-    columna = Math.round( Math.random()*6 );
-
-    for ( var i = 0; i < 4; i++){
-            mar[horizontal = 1] [ columna + i] + 1;
-
-            for(var i = 0; i < 10; i++){
-                for(var j = 0; j < 10; j++)
-                    console.log( mar[i][j] + "\t");
-                console.log("\n");
+    
+    var tablero1 = ["$", "$", "$", "$", "$", "$", "$", "$", "$", "$",];
+                 //  0    1    2    3    4    5    6    7    8    9
+    
+    var tablero2 = ["$", "$", "$", "$", "$", "$", "$", "$", "$", "$",];
+                 //  0    1    2    3    4    5    6    7    8    9
+    
+    var cord_Barcos1 = posicionesJugador1();
+    var cord_Barcos2 = posicionesJugador2(); 
+    
+    var barcosTumbados1 = [];
+    var barcosTumbados2 = [];
+    
+    juego(cord_Barcos1, cord_Barcos2, barcosTumbados1, barcosTumbados2);
+    
+    function juego(tab1, tab2, puntos1, puntos2){
+        
+        var dato = 1;
+        while(dato > 0){
+    
+            alert("Turno del jugador 1")
+            var jugador_1 = conteoTiros(tab2, puntos1);
+        
+            alert("Turno del jugador 2")
+            var jugador_2 = conteoTiros(tab1, puntos2);
+    
+            if(jugador_1 == 3){
+                console.log("\nEl jugador 1 ha tumbado todos los barcos del rival." + "¡EL JUGADOR 1 GANA!")
+                dato --;
+            }else if(jugador_2 == 3){
+                console.log("\nEl jugador 2 ha tumbado todos los barcos del rival." + "¡EL JUGADOR 2 GANA!")
+                dato --;
             }
+        }
+        console.log("Tableros finales");
+        console.log("\nTablero del jugador 1");
+        console.log(tab1);
+        console.log("Tablero del jugador 2");
+        console.log(tab2);
     }
-}else
-    cosole.log( "\nIngresar un rango valido [1_10" );
-
-</script>
+    
+    //----------------------------------------------------------------------------------------------------------------------
+    
+    function conteoTiros(tabs, point){
+        var tiros = parseInt(prompt("Apunta y dispara!!"));
+    
+            if(tabs[tiros - 1] == "Barco"){
+                var monitoreo = tabs[tiros - 1];
+                tabs[tiros - 1] = "Tumbado";
+                point.push("$");
+                alert("Tiro acertado en la posicon " + tiros);
+                var numer = point.length;
+            }else{
+                alert("Tiro fallado en la posicon " + tiros);
+            }
+        
+        return numer;
+    }
+    
+    function posicionesJugador1(){
+        alert("Jugador 1");
+    
+        for(i = 0; i < 3; i++){
+            var asignaBarcos = parseInt(prompt("Inserte el numero de posicion del barco " + (i + 1)));
+    
+            var inicio = true;
+            if(inicio == true){
+                var asignando = tablero1[asignaBarcos - 1];
+                tablero1[asignaBarcos - 1] = "Barco";
+            }
+        }
+        return tablero1;
+    }
+    
+    function posicionesJugador2(){
+        alert("Jugador 2");
+    
+        for(i = 0; i < 3; i++){
+            var asignaBarcos1 = parseInt(prompt("Inserte el numero de posicion del barco " + (i + 1)));
+    
+            var inicio1 = true;
+            if(inicio1 == true){
+                var asignando1 = tablero2[asignaBarcos1 - 1];
+                tablero2[asignaBarcos1 - 1] = "Barco";
+            }
+        }
+        return tablero2;
+    }
+    
+    </script>
